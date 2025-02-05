@@ -1,33 +1,17 @@
 from main import BooksCollector
-
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
 class TestBooksCollector:
-
-    # пример теста:
-    # обязательно указывать префикс test_
-    # дальше идет название метода, который тестируем add_new_book_
-    # затем, что тестируем add_two_books - добавление двух книг
-from main import BooksCollector
-
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
-class TestBooksCollector:
-
-        # напиши свои тесты ниже
-    # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
     def test_set_book_genre(self):
         collector = BooksCollector()
         collector.books_genre = {'Игра престолов': 'Фантастика',
                                  'Еретик' : 'Ужасы',
                                  'Каштановые человечки' : 'Детектив',
                                  'Моана' : 'Мультфильм',
-                                 'Американский пирог' : 'Комедии'
+                                 'Американский пирог' : 'Комедия'
                                  }
-        collector.set_book_genre('Моана' , 'Мультфильм')
+        collector.set_book_genre('Моана' , 'Комедия')
         assert collector.books_genre ['Моана'] == 'Мультфильм'
 
-    def test_get_book_genre_good(self, name):
+    def test_get_book_genre_good(self):
         collector = BooksCollector()
         collector.books_genre = {'Игра престолов': 'Фантастика',
                                  'Еретик' : 'Ужасы',
@@ -35,7 +19,7 @@ class TestBooksCollector:
                                  'Моана' : 'Мультфильм',
                                  'Американский пирог' : 'Комедии'
                                  }
-        assert collector.get_book_genre(name) == collector.books_genre[name]
+        assert collector.get_book_genre('Каштановые человечки') == collector.books_genre['Каштановые человечки']
 
     def test_get_books_with_specific_genre_valid_genre_good(self):
         collector = BooksCollector()
@@ -57,7 +41,7 @@ class TestBooksCollector:
                                  }
         assert collector.get_books_for_children() == ['Моана']
 
-    def add_book_in_favorites_my_again(self, name):
+    def add_book_in_favorites_my_again(self):
         collector = BooksCollector()
         collector.books_genre = {'Каштановые человечки': 'Детектив'}
         collector.favorites = ['Каштановые человечки']
@@ -74,3 +58,8 @@ class TestBooksCollector:
         collector = BooksCollector()
         collector.favorites = ['Моана', 'Игра престолов', 'Каштановые человечки']
         assert collector.get_list_of_favorites_books() == collector.favorites
+
+    def test_add_new_book_add_one_books(self):
+        collector = BooksCollector()
+        collector.add_new_book('Облако')
+        assert len(collector.get_books_genre()) == 1
